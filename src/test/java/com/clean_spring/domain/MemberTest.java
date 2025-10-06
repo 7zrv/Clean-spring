@@ -4,6 +4,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.test.context.aot.DisabledInAotMode;
+import org.testcontainers.shaded.org.hamcrest.core.IsInstanceOf;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -127,6 +129,21 @@ class MemberTest {
 
         member.deActivate();
         assertThat(member.isActive()).isFalse();
+    }
+
+    @Test
+    @DisplayName("")
+    void invalidEmail() {
+        // given
+
+        // when
+
+        // then
+        assertThatThrownBy(() -> 
+            Member.create(new MemberCreateRequest("invalid email", "seojin", "secret"), passwordEncoder)
+        ).isInstanceOf(IllegalArgumentException.class);
+
+        Member.create(new MemberCreateRequest("seojin@gmail.app", "seojin", "secret"), passwordEncoder);
     }
 
 }
