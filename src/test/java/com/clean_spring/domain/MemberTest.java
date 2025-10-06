@@ -28,7 +28,7 @@ class MemberTest {
             }
         };
 
-        member = Member.create("seojin@gmail.app", "seojin", "secret", passwordEncoder);
+        member = Member.create(new MemberCreateRequest("seojin@gmail.app", "seojin", "secret"), passwordEncoder);
     }
 
     @Test
@@ -115,6 +115,18 @@ class MemberTest {
 
         // then
         assertThat(member.verifyPassword("newSecret", passwordEncoder)).isTrue();
+    }
+
+    @Test
+    @DisplayName("")
+    void isActive() {
+        assertThat(member.isActive()).isFalse();
+
+        member.activate();
+        assertThat(member.isActive()).isTrue();
+
+        member.deActivate();
+        assertThat(member.isActive()).isFalse();
     }
 
 }

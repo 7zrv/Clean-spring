@@ -1,10 +1,13 @@
 package com.clean_spring.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.util.Assert;
 
 import java.util.Objects;
+
+import static java.util.Objects.requireNonNull;
 
 @Getter
 @ToString
@@ -17,16 +20,18 @@ public class Member {
 
     private MemberStatus status;
 
-    private Member(String email, String nickname, String password) {
-        this.email = Objects.requireNonNull(email);
-        this.nickname = Objects.requireNonNull(nickname);
-        this.password = Objects.requireNonNull(password);
+    private Member() {}
 
-        this.status = MemberStatus.PENDING;
-    }
+    public static Member create(MemberCreateRequest createRequest, PasswordEncoder passwordEncoder) {
+        Member member = new Member();
 
-    public static Member create(String email, String nickname, String password, PasswordEncoder passwordEncoder) {
-        return new Member(email, nickname, passwordEncoder.encode(password));
+        member.email = requireNonNull(createRequest.email());
+        member.nickname = requireNonNull(createRequest.nickname());
+        member.password = requireNonNull(passwordEncoder.encode(createRequest.password()));
+
+        member.status = MemberStatus.PENDING;
+
+        return member;
     }
 
     public void activate() {
@@ -46,11 +51,15 @@ public class Member {
     }
 
     public void changeNickname(String nickname) {
-        this.nickname = Objects.requireNonNull(nickname);
+        this.nickname = requireNonNull(nickname);
     }
 
     public void changePassword(String password, PasswordEncoder passwordEncoder) {
-        this.password = passwordEncoder.encode(password);
+        this.password = passwordEncoder.encode(requireNonNull(password));
+    }
+
+    public boolean isActive() {
+        return this.status.equals(MemberStatus.ACTIVATE);
     }
 
 }
