@@ -3,14 +3,9 @@ package com.clean_spring.domain;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
-import org.springframework.test.context.aot.DisabledInAotMode;
-import org.testcontainers.shaded.org.hamcrest.core.IsInstanceOf;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.setRemoveAssertJRelatedElementsFromStackTrace;
-import static org.junit.jupiter.api.Assertions.*;
 
 class MemberTest {
     Member member;
@@ -30,12 +25,12 @@ class MemberTest {
             }
         };
 
-        member = Member.create(new MemberCreateRequest("seojin@gmail.app", "seojin", "secret"), passwordEncoder);
+        member = Member.register(new MemberRegisterRequest("seojin@gmail.app", "seojin", "secret"), passwordEncoder);
     }
 
     @Test
     @DisplayName("")
-    void createMember() {
+    void registerMember() {
         assertThat(member.getStatus()).isEqualTo(MemberStatus.PENDING);
     }
 
@@ -140,10 +135,10 @@ class MemberTest {
 
         // then
         assertThatThrownBy(() -> 
-            Member.create(new MemberCreateRequest("invalid email", "seojin", "secret"), passwordEncoder)
+            Member.register(new MemberRegisterRequest("invalid email", "seojin", "secret"), passwordEncoder)
         ).isInstanceOf(IllegalArgumentException.class);
 
-        Member.create(new MemberCreateRequest("seojin@gmail.app", "seojin", "secret"), passwordEncoder);
+        Member.register(new MemberRegisterRequest("seojin@gmail.app", "seojin", "secret"), passwordEncoder);
     }
 
 }

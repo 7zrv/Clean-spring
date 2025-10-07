@@ -1,12 +1,8 @@
 package com.clean_spring.domain;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
 import org.springframework.util.Assert;
-
-import java.util.Objects;
-import java.util.regex.Pattern;
 
 import static java.util.Objects.requireNonNull;
 
@@ -23,7 +19,7 @@ public class Member {
 
     private Member() {}
 
-    public static Member create(MemberCreateRequest createRequest, PasswordEncoder passwordEncoder) {
+    public static Member register(MemberRegisterRequest createRequest, PasswordEncoder passwordEncoder) {
         Member member = new Member();
 
         member.email = new Email(createRequest.email());
