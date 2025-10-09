@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import org.hibernate.annotations.NaturalId;
 import org.springframework.util.Assert;
 
 import static java.util.Objects.requireNonNull;
@@ -17,6 +18,7 @@ public class Member {
     private Long id;
 
     @Embedded
+    @NaturalId
     private Email email;
 
     private String nickname;
