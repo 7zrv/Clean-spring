@@ -3,9 +3,7 @@ package com.clean_spring.application;
 import com.clean_spring.application.provided.MemberRegister;
 import com.clean_spring.application.required.EmailSender;
 import com.clean_spring.application.required.MemberRepository;
-import com.clean_spring.domain.Member;
-import com.clean_spring.domain.MemberRegisterRequest;
-import com.clean_spring.domain.PasswordEncoder;
+import com.clean_spring.domain.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +18,7 @@ public class MemberService implements MemberRegister {
     @Override
     public Member register(MemberRegisterRequest registerRequest) {
         // check
+        checkDuplicateEmail(registerRequest);
 
         // domain model
         Member member = Member.register(registerRequest, passwordEncoder);
@@ -28,8 +27,18 @@ public class MemberService implements MemberRegister {
         memberRepository.save(member);
 
         // post process
-        emailSender.send(member.getEmail(), "Welcome!", "Thank you for registering.");
+        sendWelcomeEmail(member);
 
         return member;
+    }
+
+    private void sendWelcomeEmail(Member member) {
+        emailSender.send(member.getEmail(), "Welcome!", "Thank you for registering.");
+    }
+
+    private void checkDuplicateEmail(MemberRegisterRequest registerRequest) {
+        if (memberRepository.findByEmail(new Email(registerRequest.email())).isPresent()) {;
+            throw new DuplicateEmailException("Email already exists: ");
+        }
     }
 }
