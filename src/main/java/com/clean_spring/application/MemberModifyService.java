@@ -15,8 +15,9 @@ import org.springframework.validation.annotation.Validated;
 @Transactional
 @Validated
 @RequiredArgsConstructor
-public class MemberService implements MemberRegister, MemberFinder {
+public class MemberModifyService implements MemberRegister {
 
+    private final MemberFinder memberFinder;
     private final MemberRepository memberRepository;
     private final EmailSender emailSender;
     private final PasswordEncoder passwordEncoder;
@@ -41,7 +42,7 @@ public class MemberService implements MemberRegister, MemberFinder {
 
     @Override
     public Member activate(Long memberId) {
-        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("Member not found"));
+        Member member = memberFinder.find(memberId);
 
         member.activate();
 
@@ -58,8 +59,4 @@ public class MemberService implements MemberRegister, MemberFinder {
         }
     }
 
-    @Override
-    public Member find(Long memberId) {
-        return memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("Member not found"));
-    }
 }
