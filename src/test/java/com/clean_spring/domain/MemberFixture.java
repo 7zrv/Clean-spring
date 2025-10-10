@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 public class MemberFixture {
 
     public static MemberRegisterRequest createMemberRegisterRequest(String email) {
-        return new MemberRegisterRequest(email, "seojin", "secret");
+        return new MemberRegisterRequest(email, "seojin", "secretsecret");
     }
 
     public static @NotNull MemberRegisterRequest createMemberRegisterRequest() {

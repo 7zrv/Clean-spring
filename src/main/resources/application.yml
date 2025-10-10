@@ -1,0 +1,5 @@
+spring:
+  application:
+    name: clean_spring
+  jpa:
+    show-sql: true

@@ -1,23 +1,30 @@
 package com.clean_spring.application;
 
+import com.clean_spring.application.provided.MemberFinder;
 import com.clean_spring.application.provided.MemberRegister;
 import com.clean_spring.application.required.EmailSender;
 import com.clean_spring.application.required.MemberRepository;
 import com.clean_spring.domain.*;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 @Service
+@Transactional
+@Validated
 @RequiredArgsConstructor
-public class MemberService implements MemberRegister {
+public class MemberService implements MemberRegister, MemberFinder {
 
     private final MemberRepository memberRepository;
     private final EmailSender emailSender;
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public Member register(MemberRegisterRequest registerRequest) {
+    public Member register(@Valid MemberRegisterRequest registerRequest) {
         // check
+
         checkDuplicateEmail(registerRequest);
 
         // domain model
@@ -32,6 +39,15 @@ public class MemberService implements MemberRegister {
         return member;
     }
 
+    @Override
+    public Member activate(Long memberId) {
+        Member member = memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("Member not found"));
+
+        member.activate();
+
+        return memberRepository.save(member);
+    }
+
     private void sendWelcomeEmail(Member member) {
         emailSender.send(member.getEmail(), "Welcome!", "Thank you for registering.");
     }
@@ -40,5 +56,10 @@ public class MemberService implements MemberRegister {
         if (memberRepository.findByEmail(new Email(registerRequest.email())).isPresent()) {;
             throw new DuplicateEmailException("Email already exists: ");
         }
+    }
+
+    @Override
+    public Member find(Long memberId) {
+        return memberRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("Member not found"));
     }
 }

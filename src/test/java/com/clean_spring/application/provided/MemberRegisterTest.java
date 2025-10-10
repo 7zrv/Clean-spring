@@ -2,23 +2,25 @@ package com.clean_spring.application.provided;
 
 import com.clean_spring.SplearnTestConfiguration;
 import com.clean_spring.domain.*;
+import jakarta.persistence.EntityManager;
+import jakarta.validation.ConstraintViolationException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestConstructor;
+import org.springframework.transaction.annotation.Transactional;
 
+import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 @SpringBootTest
+@Transactional
 @Import(SplearnTestConfiguration.class)
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-public record MemberRegisterTest(MemberRegister memberRegister) {
+record MemberRegisterTest(MemberRegister memberRegister, EntityManager entityManager) {
 
     @Test
-    @DisplayName("")
     void register() {
         // given
         Member member = memberRegister.register(MemberFixture.createMemberRegisterRequest());
@@ -26,19 +28,55 @@ public record MemberRegisterTest(MemberRegister memberRegister) {
         // when & then
         assertThat(member.getId()).isNotNull();
         assertThat(member.getStatus()).isEqualTo(MemberStatus.PENDING);
-
     }
 
     @Test
-    @DisplayName("")
     void duplicateEmailFail() {
         // given
-        Member member = memberRegister.register(MemberFixture.createMemberRegisterRequest());
+        memberRegister.register(MemberFixture.createMemberRegisterRequest());
 
         // when & then
         assertThatThrownBy(
                 () -> memberRegister.register(MemberFixture.createMemberRegisterRequest())
         ).isInstanceOf(DuplicateEmailException.class);
+    }
 
+    @Test
+    void activate() {
+        // given
+        Member member = memberRegister.register(MemberFixture.createMemberRegisterRequest());
+        entityManager.flush();
+        entityManager.clear();
+
+        // when
+        member = memberRegister.activate(member.getId());
+        entityManager.flush();
+
+        // then
+        assertThat(member.getStatus()).isEqualTo(MemberStatus.ACTIVATE);
+    }
+
+    @Test
+    void memberRegisterRequestFail() {
+        extracted(new MemberRegisterRequest(
+                "seojin@gmail.",
+                "seojin",
+                "1234"
+        ));
+        extracted(new MemberRegisterRequest(
+                "seojin@gmail.app"
+                , "s"
+                , "12341234"
+        ));
+        extracted(new MemberRegisterRequest(
+                "seojin@gmail.app"
+                , "seojin"
+                , "1234"
+        ));
+    }
+
+    private void extracted(MemberRegisterRequest invalidRequest) {
+        assertThatThrownBy(() -> memberRegister.register(invalidRequest))
+                .isInstanceOf(ConstraintViolationException.class);
     }
 }
