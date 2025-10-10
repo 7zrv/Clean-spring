@@ -58,24 +58,24 @@ record MemberRegisterTest(MemberRegister memberRegister, EntityManager entityMan
 
     @Test
     void memberRegisterRequestFail() {
-        extracted(new MemberRegisterRequest(
+        checkValidation(new MemberRegisterRequest(
                 "seojin@gmail.",
                 "seojin",
                 "1234"
         ));
-        extracted(new MemberRegisterRequest(
+        checkValidation(new MemberRegisterRequest(
                 "seojin@gmail.app"
                 , "s"
                 , "12341234"
         ));
-        extracted(new MemberRegisterRequest(
+        checkValidation(new MemberRegisterRequest(
                 "seojin@gmail.app"
                 , "seojin"
                 , "1234"
         ));
     }
 
-    private void extracted(MemberRegisterRequest invalidRequest) {
+    private void checkValidation(MemberRegisterRequest invalidRequest) {
         assertThatThrownBy(() -> memberRegister.register(invalidRequest))
                 .isInstanceOf(ConstraintViolationException.class);
     }
