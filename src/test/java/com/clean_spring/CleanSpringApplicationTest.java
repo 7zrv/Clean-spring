@@ -13,12 +13,13 @@ class CleanSpringApplicationTest {
 
     @Test
     void run() {
-        MockedStatic<SpringApplication> mocked =  Mockito.mockStatic(SpringApplication.class);
+        try(MockedStatic<SpringApplication> mocked =  Mockito.mockStatic(SpringApplication.class)) {
+            CleanSpringApplication.main(new String[0]);
 
-        CleanSpringApplication.main(new String[0]);
+            mocked.verify(() -> {
+                SpringApplication.run(CleanSpringApplication.class, new String[0]);
+            });
+        };
 
-        mocked.verify(() -> {
-            SpringApplication.run(CleanSpringApplication.class, new String[0]);
-        });
     }
 }
