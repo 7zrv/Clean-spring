@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="https://jakarta.ee/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence/orm https://jakarta.ee/xml/ns/persistence/orm/orm_3_0.xsd"
+                 version="3.0">
+
+    <mapped-superclass class="com.clean_spring.domain.AbstractEntity">
+        <attributes>
+            <id name="id">
+                <generated-value strategy="IDENTITY"/>
+            </id>
+        </attributes>
+    </mapped-superclass>
+
+    <entity class="com.clean_spring.domain.Member">
+        <table name="MEMBER">
+            <unique-constraint name="UK_MEMBER_EMAIL">
+                <column-name>email_address</column-name>
+            </unique-constraint>
+        </table>
+
+        <attributes>
+            <embedded name="email">
+                <attribute-override name="address">
+                    <column name="email_address" length="150" nullable="false"/>
+                </attribute-override>
+            </embedded>
+
+            <basic name="nickname">
+                <column name="nickname" length="100" nullable="false"/>
+            </basic>
+
+            <basic name="password">
+                <column name="password" length="200" nullable="false"/>
+            </basic>
+
+            <basic name="status">
+                <column name="status" length="50" nullable="false"/>
+                <enumerated>STRING</enumerated>
+            </basic>
+        </attributes>
+    </entity>
+
+</entity-mappings>
