@@ -9,6 +9,8 @@ import lombok.ToString;
 import org.hibernate.annotations.NaturalId;
 import org.springframework.util.Assert;
 
+import java.util.Objects;
+
 import static java.util.Objects.requireNonNull;
 
 @Entity
@@ -61,7 +63,10 @@ public class Member extends AbstractEntity {
         return passwordEncoder.matches(password, this.password);
     }
 
-    public void updateInfo(String nickname) {
+    public void updateInfo(MemberInfoUpdateRequest updateRequest) {
+        this.nickname = Objects.requireNonNull(updateRequest.nickName());
+
+        this.detail.updateInfo(updateRequest);
     }
 
     public void changePassword(String password, PasswordEncoder passwordEncoder) {

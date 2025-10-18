@@ -126,4 +126,20 @@ class MemberTest {
         Member.register(new MemberRegisterRequest("seojin@gmail.app", "seojin", "secret"), passwordEncoder);
     }
 
+    @Test
+    @DisplayName("")
+    void updateInfo() {
+        // given
+        member.activate();
+
+        // when
+        var request = new MemberInfoUpdateRequest("newNickName", "1234", "hi");
+        member.updateInfo(request);
+
+        // then
+        assertThat(member.getNickname()).isEqualTo("newNickName");
+        assertThat(member.getDetail().getProfile().address()).isEqualTo("1234");
+        assertThat(member.getDetail().getIntroduce()).isEqualTo("hi");
+    }
+
 }

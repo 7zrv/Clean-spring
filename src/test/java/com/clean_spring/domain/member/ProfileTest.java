@@ -32,4 +32,14 @@ class ProfileTest {
                 () -> new Profile("!!!!!!!")
         ).isInstanceOf(IllegalArgumentException.class);
     }
+
+    @Test
+    @DisplayName("")
+    void url() {
+        // given
+        var profile = new Profile("1234");
+
+        // when & then
+        assertThat(profile.url()).isEqualTo("@1234");
+    }
 }
