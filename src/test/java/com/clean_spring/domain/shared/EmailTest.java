@@ -1,6 +1,5 @@
-package com.clean_spring.domain;
+package com.clean_spring.domain.shared;
 
-import com.clean_spring.domain.shared.Email;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 

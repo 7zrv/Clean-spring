@@ -13,7 +13,7 @@ import static java.util.Objects.requireNonNull;
 
 @Entity
 @Getter
-@ToString(callSuper = true)
+@ToString(callSuper = true, exclude = "detail")
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
 public class Member extends AbstractEntity {
 
@@ -26,7 +26,7 @@ public class Member extends AbstractEntity {
 
     private MemberStatus status;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY, cascade =  CascadeType.ALL)
     private MemberDetail detail;
 
     public static Member register(MemberRegisterRequest createRequest, PasswordEncoder passwordEncoder) {
@@ -38,6 +38,8 @@ public class Member extends AbstractEntity {
 
         member.status = MemberStatus.PENDING;
 
+        member.detail = MemberDetail.create();
+
         return member;
     }
 
@@ -45,20 +47,21 @@ public class Member extends AbstractEntity {
         Assert.state(status.equals(MemberStatus.PENDING), "가입대기 상태가 아닙니다.");
 
         this.status = MemberStatus.ACTIVATE;
+        this.detail.activate();
     }
 
     public void  deActivate() {
         Assert.state(status.equals(MemberStatus.ACTIVATE), "활성화 상태가 아닙니다.");
 
         this.status = MemberStatus.DEACTIVATED;
+        this.detail.deactivate();
     }
 
     public boolean verifyPassword(String password, PasswordEncoder passwordEncoder) {
         return passwordEncoder.matches(password, this.password);
     }
 
-    public void changeNickname(String nickname) {
-        this.nickname = requireNonNull(nickname);
+    public void updateInfo(String nickname) {
     }
 
     public void changePassword(String password, PasswordEncoder passwordEncoder) {

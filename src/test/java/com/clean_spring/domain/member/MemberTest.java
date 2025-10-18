@@ -1,9 +1,5 @@
-package com.clean_spring.domain;
+package com.clean_spring.domain.member;
 
-import com.clean_spring.domain.member.Member;
-import com.clean_spring.domain.member.MemberRegisterRequest;
-import com.clean_spring.domain.member.MemberStatus;
-import com.clean_spring.domain.member.PasswordEncoder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,6 +24,7 @@ class MemberTest {
     @DisplayName("")
     void registerMember() {
         assertThat(member.getStatus()).isEqualTo(MemberStatus.PENDING);
+        assertThat(member.getDetail().getRegisteredAt()).isNotNull();
     }
 
     @Test
@@ -38,6 +35,7 @@ class MemberTest {
 
         //then
         assertThat(member.getStatus()).isEqualTo(MemberStatus.ACTIVATE);
+        assertThat(member.getDetail().getActivatedAt()).isNotNull();
     }
 
     @Test
@@ -64,6 +62,7 @@ class MemberTest {
 
         //then
         assertThat(member.getStatus()).isEqualTo(MemberStatus.DEACTIVATED);
+        assertThat(member.getDetail().getActivatedAt()).isNotNull();
     }
 
     @Test
@@ -86,16 +85,6 @@ class MemberTest {
     void verifyPassword() {
         assertThat(member.verifyPassword("secretsecret", passwordEncoder)).isTrue();
         assertThat(member.verifyPassword("12341234", passwordEncoder)).isFalse();
-    }
-
-    @Test
-    @DisplayName("")
-    void changeNickname() {
-        assertThat(member.getNickname()).isEqualTo("seojin");
-
-        member.changeNickname("newSeojin");
-
-        assertThat(member.getNickname()).isEqualTo("newSeojin");
     }
 
     @Test
