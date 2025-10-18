@@ -1,11 +1,8 @@
-package com.clean_spring.application.required;
+package com.clean_spring.application.member.required;
 
-import com.clean_spring.domain.Member;
+import com.clean_spring.domain.member.Member;
 import com.clean_spring.domain.MemberFixture;
-import com.clean_spring.domain.MemberRegisterRequest;
-import com.clean_spring.domain.PasswordEncoder;
 import jakarta.persistence.EntityManager;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +11,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class MemberRepositoryTest {

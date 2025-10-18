@@ -1,5 +1,7 @@
-package com.clean_spring.domain;
+package com.clean_spring.domain.member;
 
+import com.clean_spring.domain.AbstractEntity;
+import com.clean_spring.domain.shared.Email;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +26,7 @@ public class Member extends AbstractEntity {
 
     private MemberStatus status;
 
+    @OneToOne
     private MemberDetail detail;
 
     public static Member register(MemberRegisterRequest createRequest, PasswordEncoder passwordEncoder) {

@@ -1,10 +1,14 @@
-package com.clean_spring.application;
+package com.clean_spring.application.member;
 
-import com.clean_spring.application.provided.MemberFinder;
-import com.clean_spring.application.provided.MemberRegister;
-import com.clean_spring.application.required.EmailSender;
-import com.clean_spring.application.required.MemberRepository;
-import com.clean_spring.domain.*;
+import com.clean_spring.application.member.provided.MemberFinder;
+import com.clean_spring.application.member.provided.MemberRegister;
+import com.clean_spring.application.member.required.EmailSender;
+import com.clean_spring.application.member.required.MemberRepository;
+import com.clean_spring.domain.member.DuplicateEmailException;
+import com.clean_spring.domain.member.Member;
+import com.clean_spring.domain.member.MemberRegisterRequest;
+import com.clean_spring.domain.member.PasswordEncoder;
+import com.clean_spring.domain.shared.Email;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

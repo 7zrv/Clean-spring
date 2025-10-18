@@ -1,4 +1,4 @@
-package com.clean_spring.domain;
+package com.clean_spring.domain.member;
 
 public enum MemberStatus {
     PENDING, // 가입 대기

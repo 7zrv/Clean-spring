@@ -1,7 +1,4 @@
-package com.clean_spring.domain;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Embeddable;
+package com.clean_spring.domain.shared;
 
 import java.util.regex.Pattern;
 

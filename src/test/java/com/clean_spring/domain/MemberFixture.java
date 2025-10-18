@@ -1,5 +1,7 @@
 package com.clean_spring.domain;
 
+import com.clean_spring.domain.member.MemberRegisterRequest;
+import com.clean_spring.domain.member.PasswordEncoder;
 import org.jetbrains.annotations.NotNull;
 
 public class MemberFixture {

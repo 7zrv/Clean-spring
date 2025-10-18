@@ -1,10 +1,10 @@
 package com.clean_spring.domain;
 
+import com.clean_spring.domain.shared.Email;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class EmailTest {
 

@@ -1,8 +1,6 @@
 package com.clean_spring.adapter.security;
 
-import com.clean_spring.domain.PasswordEncoder;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
+import com.clean_spring.domain.member.PasswordEncoder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 

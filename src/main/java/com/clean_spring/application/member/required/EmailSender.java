@@ -1,6 +1,6 @@
-package com.clean_spring.application.required;
+package com.clean_spring.application.member.required;
 
-import com.clean_spring.domain.Email;
+import com.clean_spring.domain.shared.Email;
 
 // 이메일 전송 기능 인터페이스
 public interface EmailSender {

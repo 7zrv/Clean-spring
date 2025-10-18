@@ -1,20 +1,18 @@
-package com.clean_spring.domain;
+package com.clean_spring.domain.member;
 
+import com.clean_spring.domain.AbstractEntity;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
 @ToString(callSuper = true)
 @NoArgsConstructor(access = lombok.AccessLevel.PROTECTED)
-public class MemberDetail extends  AbstractEntity {
+public class MemberDetail extends AbstractEntity {
 
     private String profile;
 

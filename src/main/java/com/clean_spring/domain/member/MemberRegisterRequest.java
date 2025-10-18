@@ -1,4 +1,4 @@
-package com.clean_spring.domain;
+package com.clean_spring.domain.member;
 
 
 import jakarta.validation.constraints.Email;

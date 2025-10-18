@@ -1,12 +1,12 @@
-//package com.clean_spring.application.provided;
+//package com.clean_spring.application.member.provided;
 //
 //import com.clean_spring.application.MemberService;
-//import com.clean_spring.application.required.EmailSender;
-//import com.clean_spring.application.required.MemberRepository;
-//import com.clean_spring.domain.Email;
-//import com.clean_spring.domain.Member;
+//import com.clean_spring.application.member.required.EmailSender;
+//import com.clean_spring.application.member.required.MemberRepository;
+//import com.clean_spring.domain.shared.Email;
+//import com.clean_spring.domain.member.Member;
 //import com.clean_spring.domain.MemberFixture;
-//import com.clean_spring.domain.MemberStatus;
+//import com.clean_spring.domain.member.MemberStatus;
 //import org.junit.jupiter.api.DisplayName;
 //import org.junit.jupiter.api.Test;
 //import org.mockito.Mockito;

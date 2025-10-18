@@ -1,6 +1,9 @@
 package com.clean_spring.domain;
 
-import org.jetbrains.annotations.NotNull;
+import com.clean_spring.domain.member.Member;
+import com.clean_spring.domain.member.MemberRegisterRequest;
+import com.clean_spring.domain.member.MemberStatus;
+import com.clean_spring.domain.member.PasswordEncoder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

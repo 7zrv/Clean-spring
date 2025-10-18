@@ -1,7 +1,7 @@
 package com.clean_spring.adapter.intergration;
 
-import com.clean_spring.application.required.EmailSender;
-import com.clean_spring.domain.Email;
+import com.clean_spring.application.member.required.EmailSender;
+import com.clean_spring.domain.shared.Email;
 import org.springframework.context.annotation.Fallback;
 import org.springframework.stereotype.Component;
 

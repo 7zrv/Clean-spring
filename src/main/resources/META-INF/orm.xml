@@ -12,7 +12,7 @@
         </attributes>
     </mapped-superclass>
 
-    <entity class="com.clean_spring.domain.Member">
+    <entity class="com.clean_spring.domain.member.Member">
         <table name="MEMBER">
             <unique-constraint name="UK_MEMBER_EMAIL">
                 <column-name>email_address</column-name>

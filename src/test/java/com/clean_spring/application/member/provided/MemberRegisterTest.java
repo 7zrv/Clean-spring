@@ -1,17 +1,18 @@
-package com.clean_spring.application.provided;
+package com.clean_spring.application.member.provided;
 
 import com.clean_spring.SplearnTestConfiguration;
 import com.clean_spring.domain.*;
+import com.clean_spring.domain.member.DuplicateEmailException;
+import com.clean_spring.domain.member.Member;
+import com.clean_spring.domain.member.MemberRegisterRequest;
+import com.clean_spring.domain.member.MemberStatus;
 import jakarta.persistence.EntityManager;
 import jakarta.validation.ConstraintViolationException;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.TestConstructor;
 import org.springframework.transaction.annotation.Transactional;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 

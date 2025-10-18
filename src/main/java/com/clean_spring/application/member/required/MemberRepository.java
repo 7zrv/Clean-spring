@@ -1,7 +1,7 @@
-package com.clean_spring.application.required;
+package com.clean_spring.application.member.required;
 
-import com.clean_spring.domain.Email;
-import com.clean_spring.domain.Member;
+import com.clean_spring.domain.shared.Email;
+import com.clean_spring.domain.member.Member;
 import org.springframework.data.repository.Repository;
 
 import java.util.Optional;
